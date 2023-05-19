@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-body">
-    <h5 class="titulo mb-3">Crear tarjeta
-      <div class="spinner-border float-end" role="status">
+    <h5 class="titulo mb-3">{{ titulo | uppercase}}
+      <div *ngIf="loading" class="spinner-border float-end spinner-border" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
     </h5>

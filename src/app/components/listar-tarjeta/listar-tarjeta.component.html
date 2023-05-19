@@ -3,13 +3,13 @@
     <h5 class="titulo">Crear tarjeta</h5>
     <table class="table">
       <tbody>
-        <tr>
-          <td>asdasd</td>
-          <td>asdasdasd</td>
-          <td>asdasdasdas</td>
+        <tr *ngFor="let tarjeta of listTarjetas">
+          <td>{{ tarjeta.titular }}</td>
+          <td>{{ tarjeta.numeroTarjeta }}</td>
+          <td>{{ tarjeta.fechaExpiracion }}</td>
           <td>
-            <i class="fa-regular fa-pen-to-square far text-info"></i>
-            <i class="fa-solid fa-trash-can far text-danger"></i>
+            <i (click)="editarTarjeta(tarjeta)" class="fa-regular fa-pen-to-square far text-info"></i>
+            <i (click)="eliminarTarjeta(tarjeta.id)" class="fa-solid fa-trash-can far text-danger"></i>
           </td>
         </tr>
       </tbody>

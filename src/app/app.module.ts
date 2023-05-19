@@ -17,7 +17,7 @@ import { provideMessaging,getMessaging } from '@angular/fire/messaging';
 import { providePerformance,getPerformance } from '@angular/fire/performance';
 import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config';
 import { provideStorage,getStorage } from '@angular/fire/storage';
-import { ToastrModule } from 'ngx-toastr';
+import { ToastrModule, ToastNoAnimation, ToastNoAnimationModule } from 'ngx-toastr';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 
 @NgModule({
@@ -40,7 +40,7 @@ import { FIREBASE_OPTIONS } from '@angular/fire/compat';
     providePerformance(() => getPerformance()),
     provideRemoteConfig(() => getRemoteConfig()),
     provideStorage(() => getStorage()),
-    ToastrModule.forRoot()
+    ToastNoAnimationModule.forRoot()
   ],
   providers: [
     ScreenTrackingService,UserTrackingService,
