@@ -9,10 +9,11 @@ import { TarjetaService } from 'src/app/services/tarjeta.service';
   templateUrl: './crear-tarjeta.component.html',
   styleUrls: ['./crear-tarjeta.component.css']
 })
-export class CrearTarjetaComponent implements OnInit{
+export class CrearTarjetaComponent implements OnInit {
   form: FormGroup;
   loading = false;
   titulo = 'Agregar tarjeta';
+  id: string | undefined;
 
   constructor(private fb: FormBuilder, private _tarjetaService: TarjetaService, private toastr: ToastrService) {
     this.form = this.fb.group({
@@ -25,7 +26,7 @@ export class CrearTarjetaComponent implements OnInit{
 
   ngOnInit(): void {
     this._tarjetaService.getTarjetaEdit().subscribe(data => {
-      console.log(data);
+      this.id = data.id;
       this.titulo = 'Editar tarjeta';
       this.form.patchValue({
         titular: data.titular,
@@ -36,7 +37,38 @@ export class CrearTarjetaComponent implements OnInit{
     })
   }
 
-  crearTarjeta() {
+  guardarTarjeta() {
+
+    if (this.id === undefined) {
+      this.agregarTarjeta();
+    } else {
+      this.editarTarjeta(this.id);
+    }
+  }
+
+  editarTarjeta(id: string) {
+    const TARJETA: any = {
+      titular: this.form.value.titular,
+      numeroTarjeta: this.form.value.numeroTarjeta,
+      fechaExpiracion: this.form.value.fechaExpiracion,
+      cvv: this.form.value.cvv,
+      fechaActualizacion: new Date()
+    }
+
+    this.loading = true;
+    this._tarjetaService.editarTarjeta(id, TARJETA).then(() => {
+      this.loading = false;
+      this.titulo = 'Agregar Tarjeta';
+      this.form.reset();
+      this.id = undefined;
+      this.toastr.info('La tarjeta fue actualizada', 'Registro actualizado');
+    },error =>{
+      console.log(error);
+    }
+     )
+  }
+
+  agregarTarjeta() {
     const TARJETA: TarjetaCredito = {
       titular: this.form.value.titular,
       numeroTarjeta: this.form.value.numeroTarjeta,
@@ -45,7 +77,7 @@ export class CrearTarjetaComponent implements OnInit{
       fechaCreacion: new Date(),
       fechaActualizacion: new Date()
     }
-   
+
     this.loading = true;
     this._tarjetaService.guardarTarjeta(TARJETA).then(() => {
       this.loading = false;
@@ -58,6 +90,5 @@ export class CrearTarjetaComponent implements OnInit{
       console.log(error);
     })
   }
-
 
 }
