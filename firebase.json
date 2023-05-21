@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "public",
+    "public": "dist/tarjeta-credito",
     "ignore": [
       "firebase.json",
       "**/.*",

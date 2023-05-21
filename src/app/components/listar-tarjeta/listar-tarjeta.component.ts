@@ -29,7 +29,7 @@ export class ListarTarjetaComponent implements OnInit {
         });
 
       });
-      console.log(this.listTarjetas);
+      
     })
   }
 
